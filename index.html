@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕭晴欣 Eugenia | 個人作品集 Portfolio</title>
-    <!-- Tailwind CSS CDN -->
+    <title>蕭晴欣 Eugenia | 個人門戶 Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts 繁體中文與 Y2K 英文標題字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -35,12 +32,6 @@
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            scroll-behavior: smooth;
-            /* 
-               🌟 核心修改：將背景設置為妳提供的虹彩金屬流體圖片。
-               這裡預設讀取同資料夾下的 background.jpg。
-               下方設置了備用漸層，確保圖片載入前或載入失敗時，依然維持類似的雷射極光色調。
-            */
             background-image: url('background.jpg');
             background-size: cover;
             background-position: center;
@@ -49,14 +40,8 @@
             background-color: #fce7f3; /* 備用底色 */
         }
         
-        /* 隱藏滾動條，但保留手機滑動功能 */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* Y2K 漂浮動畫 */
         @keyframes float {
@@ -67,7 +52,16 @@
         .animate-float-2 { animation: float 8s ease-in-out infinite 1.5s; }
         .animate-float-3 { animation: float 7s ease-in-out infinite 3s; }
         
-        /* 🌟 雷射虹彩漸層邊框效果（重磅金屬感） */
+        /* 分頁淡入動畫 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        /* 虹彩漸層立體邊框 */
         .y2k-holo-border-pink {
             border: 3.5px solid #ff9ebb;
             box-shadow: 6px 6px 0px 0px rgba(244, 114, 182, 0.5);
@@ -87,7 +81,7 @@
             backdrop-filter: blur(8px);
         }
         
-        /* 🌟 超強液態金屬感玻璃效果（用於左側簡介卡片，能隱約透出後方的流體背景） */
+        /* 液態金屬感玻璃效果 */
         .y2k-fluid-glass {
             background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(15px) saturate(180%);
@@ -97,9 +91,8 @@
         }
     </style>
 </head>
-<body class="text-slate-800 antialiased overflow-x-hidden min-h-screen pb-12">
+<body class="text-slate-800 antialiased overflow-x-hidden min-h-screen pb-12 flex flex-col justify-between">
 
-    <!-- 🌟 背景 Y2K 漂浮貼紙元素 -->
     <div class="absolute top-24 left-6 text-y2k-pink/30 text-4xl animate-float-1 pointer-events-none select-none">✦</div>
     <div class="absolute top-48 right-8 text-y2k-purple/40 text-5xl animate-float-2 pointer-events-none select-none">★</div>
     <div class="absolute top-[40%] left-8 text-y2k-blue/40 text-3xl animate-float-3 pointer-events-none select-none">🦋</div>
@@ -107,20 +100,27 @@
     <div class="absolute bottom-40 left-10 text-y2k-purple/30 text-5xl animate-float-2 pointer-events-none select-none">💿</div>
     <div class="absolute bottom-24 right-8 text-y2k-blue/30 text-4xl animate-float-3 pointer-events-none select-none">✿</div>
 
-    <!-- 1. 頂部懸浮導覽列 -->
-    <nav class="fixed top-4 left-4 right-4 z-40">
+    <div id="music-player" class="hidden fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white/80 backdrop-blur-md p-2 rounded-full border-2 border-pink-200 shadow-lg">
+        <button onclick="toggleMusic()" id="music-btn" class="w-10 h-10 bg-gradient-to-tr from-pink-400 to-purple-400 rounded-full flex items-center justify-center text-white text-lg focus:outline-none transition-all active:scale-95 shadow-md">
+            <span id="music-icon">💿</span>
+        </button>
+        <span id="music-status" class="text-[10px] font-y2k font-bold text-pink-500 pr-2 select-none">BGM: OFF</span>
+        <audio id="bg-audio" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <nav id="main-nav" class="hidden fixed top-4 left-4 right-4 z-40">
         <div class="max-w-5xl mx-auto px-5 py-3 flex justify-between items-center bg-white/70 backdrop-blur-md rounded-full border border-white/40 shadow-lg">
-            <a href="#" class="font-y2k font-bold text-lg tracking-wider text-pink-500 flex items-center gap-1">
+            <a href="javascript:void(0)" onclick="switchView('home')" class="font-y2k font-bold text-lg tracking-wider text-pink-500 flex items-center gap-1">
                 <span>EUGENIA</span><span class="text-y2k-purple">★</span><span class="text-cyan-400">STUDIO</span>
             </a>
-            <!-- 桌機選單 -->
-            <div class="hidden md:flex space-x-6 text-sm font-bold text-gray-600">
-                <a href="#about" class="hover:text-pink-500 transition-all">關於我</a>
-                <a href="#projects" class="hover:text-purple-500 transition-all">實踐專案</a>
-                <a href="#slides" class="hover:text-cyan-500 transition-all">簡報視覺</a>
-                <a href="#contact" class="hover:text-pink-500 transition-all">聯絡我</a>
+            <div class="hidden md:flex space-x-6 text-sm font-bold">
+                <button id="nav-about" onclick="switchView('about')" class="nav-btn text-gray-600 hover:text-pink-500 transition-all py-1">關於我</button>
+                <button id="nav-projects" onclick="switchView('projects')" class="nav-btn text-gray-600 hover:text-purple-500 transition-all py-1">實踐專案</button>
+                <button id="nav-slides" onclick="switchView('slides')" class="nav-btn text-gray-600 hover:text-cyan-500 transition-all py-1">簡報視覺</button>
+                <button id="nav-contact" onclick="switchView('contact')" class="nav-btn text-gray-600 hover:text-pink-500 transition-all py-1">聯絡我</button>
             </div>
-            <!-- 下載履歷與聯絡捷徑 -->
             <div class="flex items-center gap-2">
                 <a href="#" class="bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 hover:opacity-90 text-white text-xs px-4 py-2 rounded-full font-bold shadow-md active:scale-95 transition-all">
                     下載履歷 PDF <i class="fa-solid fa-download ml-1"></i>
@@ -129,455 +129,254 @@
         </div>
     </nav>
 
-    <!-- 2. 首頁 Hero Section -->
-    <header class="pt-32 pb-16 px-6 max-w-5xl mx-auto flex flex-col justify-center min-h-[70vh] relative">
-        <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-white/60 backdrop-blur-sm text-pink-600 border border-pink-200 text-[10px] md:text-xs px-3 py-1.5 rounded-full font-y2k font-bold tracking-wider animate-pulse">
-                ★ FENG CHIA UNIVERSITY
-            </span>
-            <span class="bg-white/60 backdrop-blur-sm text-purple-600 border border-purple-200 text-[10px] md:text-xs px-3 py-1.5 rounded-full font-y2k font-bold tracking-wider">
-                💿 INDUSTRIAL ENGEERGING & SYSTEM MANAGEMENT
-            </span>
-        </div>
-        
-        <div class="space-y-6">
-            <div class="relative inline-block">
-                <h1 class="text-5xl md:text-7xl font-y2k font-black text-slate-900 leading-tight">
-                    蕭晴欣 <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400">Eugenia</span>
-                </h1>
-                <span class="absolute -top-6 -right-6 text-yellow-400 text-3xl animate-bounce">✦</span>
+    <div id="view-portal" class="page-view animate-fade-in flex-grow flex items-center justify-center min-h-screen px-6">
+        <div class="y2k-fluid-glass max-w-md w-full p-8 rounded-[36px] text-center border-4 border-white/60 shadow-2xl space-y-8">
+            <div class="space-y-2">
+                <div class="text-4xl animate-bounce">🦋</div>
+                <h1 class="text-3xl font-y2k font-black text-slate-900 tracking-wider">EUGENIA HSIAO</h1>
+                <p class="text-xs text-pink-500 font-y2k font-bold tracking-widest">WELCOME TO MY DIGITAL SPACE ★</p>
             </div>
             
-            <p class="text-base md:text-lg text-slate-700 max-w-2xl font-semibold leading-relaxed bg-white/55 p-4 rounded-2xl backdrop-blur-md border border-white/50 shadow-sm">
-                你好！我是晴欣。目前就讀於逢甲大學工業工程與系統管理學系碩士班。
-                我喜愛將<span class="text-pink-500 font-extrabold">「精實的系統邏輯」</span>結合<span class="text-purple-600 font-extrabold">「數據洞察」</span>，以工程視角和永續思維，把繁雜的現場瓶頸、市場調查與碳盤查標準，轉化為直覺、高效的優化方案。
+            <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                您好！歡迎光臨。請依據您的身份選擇最適合您的入口：
             </p>
-            
-            <div class="pt-2 flex flex-wrap gap-4">
-                <a href="#projects" class="bg-gradient-to-r from-pink-400 to-purple-400 hover:opacity-90 text-white font-y2k font-bold px-6 py-3 rounded-2xl shadow-lg transition-all active:translate-y-1">
-                    瀏覽專案成果 ✦
-                </a>
-                <a href="#about" class="bg-white/80 hover:bg-white text-slate-700 font-y2k font-bold px-6 py-3 rounded-2xl border-2 border-purple-200 transition-all shadow-md">
-                    證照與英文能力 🪪
-                </a>
+
+            <div class="flex flex-col gap-4">
+                <button onclick="enterEnterprise()" class="w-full bg-gradient-to-r from-pink-400 to-purple-400 hover:opacity-90 text-white font-y2k font-bold py-4 rounded-2xl shadow-lg transition-all active:scale-98">
+                    💼 企業主管 / 實習面試入口
+                </button>
+                <button onclick="enterPrivate()" class="w-full bg-white/80 hover:bg-white text-purple-700 border-2 border-purple-200 font-y2k font-bold py-4 rounded-2xl transition-all shadow-md active:scale-98">
+                    ✨ 朋友 / 私人日常入口
+                </button>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- 3. 關於我、核心技能與證照 (About & Skills) -->
-    <section id="about" class="py-12 px-6 max-w-5xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+    <div id="view-home" class="page-view animate-fade-in hidden flex-grow flex flex-col justify-center">
+        <header class="pt-36 pb-16 px-6 max-w-5xl mx-auto flex flex-col justify-center min-h-[70vh] relative">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="bg-white/60 backdrop-blur-sm text-pink-600 border border-pink-200 text-[10px] md:text-xs px-3 py-1.5 rounded-full font-y2k font-bold tracking-wider">
+                    ★ FENG CHIA IE & SYSTEM MANAGEMENT
+                </span>
+                <span class="bg-white/60 backdrop-blur-sm text-purple-600 border border-purple-200 text-[10px] md:text-xs px-3 py-1.5 rounded-full font-y2k font-bold tracking-wider">
+                    💿 PORTFOLIO 2026
+                </span>
+            </div>
             
-            <!-- 左側個人簡介卡片（雙欄虹彩透光效果） -->
-            <div class="y2k-fluid-glass p-6 rounded-3xl space-y-4">
-                <div class="w-16 h-16 bg-gradient-to-br from-pink-300 via-purple-300 to-cyan-300 rounded-full flex items-center justify-center shadow-inner relative mx-auto md:mx-0">
-                    <span class="text-white text-2xl font-y2k font-bold">EH</span>
-                    <span class="absolute -bottom-1 -right-1 text-base">🦋</span>
+            <div class="space-y-6">
+                <div class="relative inline-block">
+                    <h1 class="text-5xl md:text-7xl font-y2k font-black text-slate-900 leading-tight">
+                        蕭晴欣 <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400">Eugenia</span>
+                    </h1>
+                    <span class="absolute -top-6 -right-6 text-yellow-400 text-3xl animate-bounce">✦</span>
                 </div>
-                <div class="text-center md:text-left">
-                    <h2 class="text-xl font-y2k font-bold text-slate-900">蕭晴欣 Eugenia</h2>
-                    <p class="text-xs text-pink-500 font-bold mt-0.5">逢甲大學工工系碩士班</p>
-                </div>
-                <hr class="border-white/60">
-                <p class="text-xs text-slate-700 leading-relaxed font-medium">
-                    在工工領域中，我深信「能被定義的，就能被優化」。我習慣以嚴謹邏輯思考，排除系統瓶頸，並透過視覺化溝通讓數據與報告更具說服力。
+                
+                <p class="text-base md:text-lg text-slate-700 max-w-2xl font-semibold leading-relaxed bg-white/55 p-4 rounded-2xl backdrop-blur-md border border-white/50 shadow-sm">
+                    你好！我是晴欣。目前就讀於逢甲大學工業工程與系統管理學系碩士班。
+                    我喜愛將「精實的系統邏輯」結合「數據洞察」，以工程視角和永續思維，把繁雜的現場瓶頸、市場調查與碳盤查標準，轉化為直覺、高效的優化方案。
                 </p>
-                <!-- 英文 Summary -->
-                <div class="pt-3 border-t border-dashed border-white/60">
-                    <span class="text-[9px] font-y2k font-bold text-purple-600 tracking-wider block mb-1">ENGLISH BIO ✦</span>
-                    <p class="text-[11px] text-slate-600 leading-relaxed font-sans font-medium">
-                        M.S. candidate in Industrial Engineering & System Management at FCU. Driven by systematic logic and data insight, I excel in process bottleneck diagnosis, sustainable planning, and turning complex data into intuitive visual reports.
+                
+                <div class="pt-2 flex flex-wrap gap-4">
+                    <button onclick="switchView('projects')" class="bg-gradient-to-r from-pink-400 to-purple-400 hover:opacity-90 text-white font-y2k font-bold px-6 py-3.5 rounded-2xl shadow-lg transition-all">
+                        進入作品專案 ➔
+                    </button>
+                    <button onclick="switchView('about')" class="bg-white/80 hover:bg-white text-slate-700 font-y2k font-bold px-6 py-3.5 rounded-2xl border-2 border-purple-200 transition-all shadow-md">
+                        查看專業證照 🪪
+                    </button>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div id="view-about" class="page-view animate-fade-in hidden flex-grow">
+        <section class="pt-36 pb-12 px-6 max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <div class="y2k-fluid-glass p-6 rounded-3xl space-y-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-300 via-purple-300 to-cyan-300 rounded-full flex items-center justify-center relative mx-auto md:mx-0">
+                        <span class="text-white text-2xl font-y2k font-bold">EH</span>
+                    </div>
+                    <h2 class="text-xl font-y2k font-bold text-slate-900 text-center md:text-left">蕭晴欣 Eugenia</h2>
+                    <hr class="border-white/60">
+                    <p class="text-xs text-slate-700 leading-relaxed font-medium">在工工領域中，我深信「能被定義的，就能被優化」。</p>
+                </div>
+                <div class="md:col-span-2 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md cursor-pointer" onclick="openModal('modal-lang')">
+                            <h4 class="font-bold text-slate-800 text-xs mb-1">🗣️ 語言能力證照</h4>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">英文（多益能力證明）、西文（西班牙語檢定/學習證明）</p>
+                        </div>
+                        <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md cursor-pointer" onclick="openModal('modal-pro')">
+                            <h4 class="font-bold text-slate-800 text-xs mb-1">📜 相關專業證照</h4>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">工業工程、精實工程、服務管理、智慧製造、永續相關證照</p>
+                        </div>
+                        <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md cursor-pointer" onclick="openModal('modal-ipas')">
+                            <h4 class="font-bold text-slate-800 text-xs mb-1">⚡ ipas 專業工程師認證</h4>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">經濟部產業人才能力鑑定相關專業工程師合格證明</p>
+                        </div>
+                        <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md">
+                            <h4 class="font-bold text-slate-800 text-xs mb-1">📊 工具軟體掌握</h4>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">FlexSim（3D 系統模擬規劃）、Minitab（統計品管分析與實驗設計）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="view-projects" class="page-view animate-fade-in hidden flex-grow">
+        <section class="pt-36 pb-12 px-6 max-w-5xl mx-auto">
+            <h2 class="text-2xl font-y2k font-bold text-center mb-8">學術與專案實踐歷程</h2>
+            <div class="space-y-8">
+                <div class="rounded-3xl p-6 y2k-holo-border-pink cursor-pointer" onclick="openModal('modal-project1')">
+                    <span class="bg-pink-100 text-pink-700 font-bold text-xs px-3 py-1 rounded-full">★ 大學部畢業專題 (點擊看細項)</span>
+                    <h3 class="text-lg font-bold text-slate-900 mt-2">應用價值流程圖於產線檢測瓶頸問題</h3>
+                </div>
+                <div class="rounded-3xl p-6 y2k-holo-border-purple cursor-pointer" onclick="openModal('modal-project2')">
+                    <span class="bg-purple-100 text-purple-700 font-bold text-xs px-3 py-1 rounded-full">★ 研究所課堂成果 (點擊看細項)</span>
+                    <h3 class="text-lg font-bold text-slate-900 mt-2">環保科技保鮮盒開發計畫</h3>
+                </div>
+                <div class="rounded-3xl p-6 y2k-holo-border-blue cursor-pointer" onclick="openModal('modal-project3')">
+                    <span class="bg-cyan-100 text-cyan-700 font-bold text-xs px-3 py-1 rounded-full">★ 研究所執行計畫 (點擊看細項)</span>
+                    <h3 class="text-lg font-bold text-slate-900 mt-2">企業碳盤查執行計畫書</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="view-slides" class="page-view animate-fade-in hidden flex-grow">
+        <section class="pt-36 pb-12 px-6 max-w-5xl mx-auto">
+            <div class="bg-slate-900 text-white rounded-[40px] p-8">
+                <h2 class="text-xl font-bold mb-4">簡報設計與邏輯視覺化藝廊</h2>
+                </div>
+        </section>
+    </div>
+
+    <div id="view-contact" class="page-view animate-fade-in hidden flex-grow">
+        <section class="pt-36 pb-12 px-6 max-w-xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-4">Let's Connect!</h2>
+            <div class="bg-white/80 backdrop-blur-md rounded-[32px] p-5 border-4 border-pink-200 shadow-lg text-left">
+                <p class="font-bold text-slate-800">電話：0905-696-662</p>
+                <p class="font-bold text-slate-800">郵件：e9u2g0e2n1i5a@gmail.com</p>
+            </div>
+        </section>
+    </div>
+
+
+    <div id="view-private" class="page-view animate-fade-in hidden flex-grow">
+        <section class="pt-36 pb-12 px-6 max-w-4xl mx-auto text-center space-y-8">
+            <div class="space-y-3">
+                <span class="text-4xl">🍒</span>
+                <h2 class="text-3xl font-y2k font-black text-slate-900">EUGENIA'S PRIVATE ROOM</h2>
+                <p class="text-xs text-purple-600 font-bold tracking-widest">這裡記錄著我的日常、靈感與生活剪影 ✦</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div class="y2k-holo-border-purple p-6 rounded-3xl">
+                    <span class="text-xl">🎧</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-2 mb-1">My Favorite Playlist</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        放鬆時最喜歡聽的歌單！音樂是我的靈魂燃料。妳也可以點擊右下角的 💿 按鈕，聽聽看我網頁的專屬背景音樂喔！
+                    </p>
+                </div>
+                <div class="y2k-holo-border-pink p-6 rounded-3xl">
+                    <span class="text-xl">📸</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-2 mb-1">Life & Photography</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        喜歡記錄生活中那些閃閃發光的微小瞬間。無論是美食、街景，還是天空的晚霞。
                     </p>
                 </div>
             </div>
 
-            <!-- 右側：重新調整的四個證照與工具 TITLE 區塊 (1 分鐘掃描區) -->
-            <div class="md:col-span-2 space-y-4">
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="text-lg">🪪</span>
-                    <h4 class="font-y2k font-bold text-sm tracking-wide text-cyan-700">CORE SKILLS & CREDENTIALS</h4>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    
-                    <!-- Title 1: 語言能力證照 -->
-                    <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md hover:border-pink-300 transition-all cursor-pointer group" onclick="openModal('modal-lang')">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xl">🗣️</span>
-                            <span class="text-[9px] text-pink-500 font-bold font-mono group-hover:translate-x-1 transition-transform">點擊看證明 ➔</span>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-xs mb-1">語言能力證照</h4>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">
-                            英文（多益能力證明）、西文（西班牙語檢定/學習證明）
-                        </p>
-                    </div>
-
-                    <!-- Title 2: 相關專業證照 -->
-                    <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md hover:border-purple-300 transition-all cursor-pointer group" onclick="openModal('modal-pro')">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xl">📜</span>
-                            <span class="text-[9px] text-purple-500 font-bold font-mono group-hover:translate-x-1 transition-transform">點擊看證明 ➔</span>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-xs mb-1">相關專業證照</h4>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">
-                            工業工程、精實工程、服務管理、智慧製造、永續相關證照
-                        </p>
-                    </div>
-
-                    <!-- Title 3: ipas 證照 -->
-                    <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md hover:border-cyan-300 transition-all cursor-pointer group" onclick="openModal('modal-ipas')">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xl">⚡</span>
-                            <span class="text-[9px] text-cyan-600 font-bold font-mono group-hover:translate-x-1 transition-transform">點擊看證明 ➔</span>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-xs mb-1">ipas 專業工程師認證</h4>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">
-                            經濟部產業人才能力鑑定（ipas）相關專業工程師合格證明
-                        </p>
-                    </div>
-
-                    <!-- Title 4: 工具掌握 -->
-                    <div class="bg-white/70 backdrop-blur-md p-4 rounded-2xl border border-white/50 shadow-md hover:border-yellow-300 transition-all group">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xl">📊</span>
-                            <span class="text-[9px] text-slate-400 font-bold font-mono">精通工具</span>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-xs mb-1">工具軟體掌握</h4>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">
-                            FlexSim（3D 系統模擬規劃）、Minitab（統計品管分析與實驗設計）
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 4. 執行專案 -->
-    <section id="projects" class="py-12 px-6 max-w-5xl mx-auto">
-        <div class="text-center mb-10">
-            <span class="text-xs font-bold tracking-widest text-pink-600 bg-white/80 px-3 py-1 rounded-full shadow-sm">My Portfolio</span>
-            <h2 class="text-2xl md:text-3xl font-y2k font-bold text-slate-900 mt-2">學術與專案實踐歷程</h2>
-            <p class="text-slate-700 text-xs mt-1">點擊專案卡片，可以彈出閱讀更詳細的執行計畫細項、簡報或圖片</p>
-        </div>
-
-        <div class="space-y-10">
-            <!-- 專案一 -->
-            <div class="rounded-3xl p-6 md:p-8 y2k-holo-border-pink transition-all duration-300 hover:translate-x-1 hover:translate-y-1 cursor-pointer" onclick="openModal('modal-project1')">
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-                    <span class="bg-pink-100 text-pink-700 font-bold text-xs px-3 py-1 rounded-full">
-                        ★ 大學部畢業專題 (點選看細項)
-                    </span>
-                    <span class="text-xs text-slate-500 font-mono">VSM / 現場改善 ➔</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 mb-4">應用價值流程圖於產線檢測瓶頸問題</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-pink-500 block mb-1">🔍 發現痛點</span>
-                        <p class="text-slate-600">產線檢測關卡因工時不均，造成半成品堆積與嚴重的人員等待，大幅限制產能。</p>
-                    </div>
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-purple-500 block mb-1">⚙️ 執行過程</span>
-                        <p class="text-slate-600">測量各站工時，繪製「現況價值流程圖」，運用 IE 七大手法重新調配工序。</p>
-                    </div>
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-cyan-600 block mb-1">📊 執行成果</span>
-                        <p class="text-slate-600">成功平衡生產線，消除檢測瓶頸，大幅降低等待浪費、提高產線流動效率。</p>
-                    </div>
-                </div>
-
-                <!-- AI 協作看板 -->
-                <div class="border-2 border-dashed border-pink-300 rounded-2xl p-4 bg-white/60" onclick="event.stopPropagation();">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-sm">🤖</span>
-                        <span class="text-xs font-y2k font-bold text-pink-500 tracking-wider">AI COLLABORATION LOG // 人機協同紀錄</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-pink-50/50 p-3.5 rounded-xl border border-pink-200">
-                            <span class="text-[9px] font-bold text-pink-600 block mb-1">💬 MY AI PROMPT</span>
-                            <p class="text-[11px] text-slate-700 italic leading-relaxed">
-                                「我正在分析電子檢測產線的 VSM。檢測站 A 的 CT 為 45 秒，前置站 B 為 25 秒。請以 IE 七大手法提供重平衡最佳化的大綱計畫。」
-                            </p>
-                        </div>
-                        <div class="bg-cyan-50/30 p-3.5 rounded-xl border border-cyan-200">
-                            <span class="text-[9px] font-bold text-cyan-700 block mb-1">📋 AI WORK PLAN & REPORT</span>
-                            <ul class="text-[11px] text-slate-700 space-y-1 list-disc pl-4 leading-relaxed">
-                                <li><strong>工作計畫：</strong>依 Takt Time 規劃工序拆解重組方案。</li>
-                                <li><strong>完成度：</strong><span class="text-emerald-600 font-bold">100% 落實</span>，不平衡率降低 15%。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 專案二 -->
-            <div class="rounded-3xl p-6 md:p-8 y2k-holo-border-purple transition-all duration-300 hover:translate-x-1 hover:translate-y-1 cursor-pointer" onclick="openModal('modal-project2')">
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-                    <span class="bg-purple-100 text-purple-700 font-bold text-xs px-3 py-1 rounded-full">
-                        ★ 研究所課堂成果 (點選看細項)
-                    </span>
-                    <span class="text-xs text-slate-500 font-mono">產品開發 / 問卷數據 ➔</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 mb-4">環保科技保鮮盒開發計畫</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-pink-500 block mb-1">🔍 發現痛點</span>
-                        <p class="text-slate-600">外食族常面臨便當加熱不便、不保鮮。市面上缺乏整合溫控與便攜概念的產品。</p>
-                    </div>
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-purple-500 block mb-1">⚙️ 執行過程</span>
-                        <p class="text-slate-600">設計問卷收集消費者午餐痛點。依數據進行產品功能規劃，繪製 3D 產品設計圖與影片。</p>
-                    </div>
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-cyan-600 block mb-1">📊 執行成果</span>
-                        <p class="text-slate-600">完成整套產品開發提案書，包含市場定位、3D設計圖與宣傳片，展示跨域提案與商業分析力。</p>
-                    </div>
-                </div>
-
-                <!-- AI 協作看板 -->
-                <div class="border-2 border-dashed border-purple-300 rounded-2xl p-4 bg-white/60" onclick="event.stopPropagation();">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-sm">🤖</span>
-                        <span class="text-xs font-y2k font-bold text-purple-500 tracking-wider">AI COLLABORATION LOG // 人機協同紀錄</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-pink-50/50 p-3.5 rounded-xl border border-pink-200">
-                            <span class="text-[9px] font-bold text-pink-600 block mb-1">💬 MY AI PROMPT</span>
-                            <p class="text-[11px] text-slate-700 italic leading-relaxed">
-                                「請幫我設計一份針對外食便當族、關於智慧溫控便當盒接受度的問卷大綱，必須使用李克特五點量表。」
-                            </p>
-                        </div>
-                        <div class="bg-cyan-50/30 p-3.5 rounded-xl border border-cyan-200">
-                            <span class="text-[9px] font-bold text-cyan-700 block mb-1">📋 AI WORK PLAN & REPORT</span>
-                            <ul class="text-[11px] text-slate-700 space-y-1 list-disc pl-4 leading-relaxed">
-                                <li><strong>工作計畫：</strong>產出包含人口變數、痛點與價格調查問卷範本。</li>
-                                <li><strong>完成度：</strong><span class="text-emerald-600 font-bold">100% 執行</span>，順利回收並分析問卷。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 專案三 -->
-            <div class="rounded-3xl p-6 md:p-8 y2k-holo-border-blue transition-all duration-300 hover:translate-x-1 hover:translate-y-1 cursor-pointer" onclick="openModal('modal-project3')">
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-                    <span class="bg-cyan-100 text-cyan-700 font-bold text-xs px-3 py-1 rounded-full">
-                        ★ 研究所執行計畫 (點選看細項)
-                    </span>
-                    <span class="text-xs text-slate-500 font-mono">ISO 14064 / 碳足跡 ➔</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 mb-4">企業碳盤查執行計畫書</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-pink-500 block mb-1">🔍 執行背景</span>
-                        <p class="text-slate-600">因應國際減碳法規與供應鏈要求，為本土製造業規劃高合規、系統化的組織碳排放量盤查計畫。</p>
-                    </div>
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-purple-500 block mb-1">⚙️ 執行過程</span>
-                        <p class="text-slate-600">依 ISO 14064-1 標準確立組織邊界，設計能源活動數據收集表，並建置 Excel 計算模型。</p>
-                    </div>
-                    <div class="bg-white/70 p-4 rounded-xl text-xs shadow-sm">
-                        <span class="font-bold text-cyan-600 block mb-1">📊 執行成果</span>
-                        <p class="text-slate-600">產出符合國際規範的「企業碳盤查執行報告」，展現卓越的計畫執行力與供應鏈合規理解。</p>
-                    </div>
-                </div>
-
-                <!-- AI 協作看板 -->
-                <div class="border-2 border-dashed border-cyan-300 rounded-2xl p-4 bg-white/60" onclick="event.stopPropagation();">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-sm">🤖</span>
-                        <span class="text-xs font-y2k font-bold text-cyan-600 tracking-wider">AI COLLABORATION LOG // 人機協同紀錄</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-pink-50/50 p-3.5 rounded-xl border border-pink-200">
-                            <span class="text-[9px] font-bold text-pink-600 block mb-1">💬 MY AI PROMPT</span>
-                            <p class="text-[11px] text-slate-700 italic leading-relaxed">
-                                「請幫我梳理 ISO 14064-1:2018 標準中範疇一與範疇二盤查重點，如何建立活動數據收集表格架構？」
-                            </p>
-                        </div>
-                        <div class="bg-cyan-50/30 p-3.5 rounded-xl border border-cyan-200">
-                            <span class="text-[9px] font-bold text-cyan-700 block mb-1">📋 AI WORK PLAN & REPORT</span>
-                            <ul class="text-[11px] text-slate-700 space-y-1 list-disc pl-4 leading-relaxed">
-                                <li><strong>工作計畫：</strong>擬定燃料、電力、非直接碳排數據欄位。</li>
-                                <li><strong>完成度：</strong><span class="text-emerald-600 font-bold">100% 完成</span>，產出企業盤查計畫。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. 簡報與邏輯視覺化藝廊 -->
-    <section id="slides" class="py-16 px-6 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white rounded-[40px] mx-4 my-10 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
-
-        <div class="max-w-5xl mx-auto relative z-10">
-            <div class="mb-8 text-center md:text-left">
-                <span class="text-xs font-y2k font-bold tracking-widest text-y2k-pink bg-pink-900/30 border border-pink-700/50 px-3 py-1 rounded-full uppercase">
-                    ★ Slide Design Portfolio
-                </span>
-                <h2 class="text-2xl font-y2k font-bold mt-2">簡報設計與邏輯視覺化藝廊</h2>
-                <p class="text-slate-400 text-xs mt-1">「把複雜數據，翻譯成最具邏輯與易讀性的畫面。」（在手機上可用手指左右滑動）</p>
-            </div>
-
-            <!-- 手機左右滑動 Slider -->
-            <div class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory no-scrollbar">
-                
-                <!-- 投影片 1 -->
-                <div class="flex-none w-[280px] md:w-[420px] snap-start bg-slate-800/85 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700 shadow-lg">
-                    <div class="aspect-video bg-slate-900 flex flex-col items-center justify-center p-6 relative">
-                        <!-- ⚠️ 替換範例：<img src="slide1.png" class="absolute inset-0 w-full h-full object-cover"> -->
-                        <div class="text-center">
-                            <span class="text-4xl block mb-2">💿</span>
-                            <span class="text-[10px] font-mono text-pink-400 block mb-1">PRESENTATION 01</span>
-                            <p class="text-sm font-bold text-white">改善前後 VSM 現況比對圖</p>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-slate-800">
-                        <h4 class="text-xs font-bold text-y2k-pink mb-1">✦ 數據對比重構</h4>
-                        <p class="text-[11px] text-slate-400">將工時與非加值等待時間以高對比色塊視覺化，使決策者一眼看出改善效益。</p>
-                    </div>
-                </div>
-
-                <!-- 投影片 2 -->
-                <div class="flex-none w-[280px] md:w-[420px] snap-start bg-slate-800/85 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700 shadow-lg">
-                    <div class="aspect-video bg-slate-900 flex flex-col items-center justify-center p-6 relative">
-                        <!-- ⚠️ <img src="slide2.png" class="absolute inset-0 w-full h-full object-cover"> -->
-                        <div class="text-center">
-                            <span class="text-4xl block mb-2">🦋</span>
-                            <span class="text-[10px] font-mono text-purple-400 block mb-1">PRESENTATION 02</span>
-                            <p class="text-sm font-bold text-white">消費者午餐習慣問卷分析</p>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-slate-800">
-                        <h4 class="text-xs font-bold text-y2k-purple mb-1">✦ 金字塔痛點邏輯拆解</h4>
-                        <p class="text-[11px] text-slate-400">避開枯燥的統計數字，將消費者習慣數據提煉為三大核心痛點，呈現產品優勢。</p>
-                    </div>
-                </div>
-
-                <!-- 投影片 3 -->
-                <div class="flex-none w-[280px] md:w-[420px] snap-start bg-slate-800/85 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700 shadow-lg">
-                    <div class="aspect-video bg-slate-900 flex flex-col items-center justify-center p-6 relative">
-                        <!-- ⚠️ <img src="slide3.png" class="absolute inset-0 w-full h-full object-cover"> -->
-                        <div class="text-center">
-                            <span class="text-4xl block mb-2">✿</span>
-                            <span class="text-[10px] font-mono text-cyan-400 block mb-1">PRESENTATION 03</span>
-                            <p class="text-sm font-bold text-white">ISO 14064 碳足跡與時程規劃</p>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-slate-800">
-                        <h4 class="text-xs font-bold text-y2k-blue mb-1">✦ 繁雜條文圖表化</h4>
-                        <p class="text-[11px] text-slate-400">將生硬的盤查規範步驟轉化為層次分明、好讀的時間軸，展現專業的專案時效掌控力。</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- 手機左右滑動提示 -->
-            <div class="flex items-center justify-center gap-2 mt-4 text-xs text-slate-500 md:hidden animate-pulse">
-                <span>◀ 左右滑動切換投影片 ▶</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. 聯絡資訊 -->
-    <footer id="contact" class="py-12 px-6 max-w-xl mx-auto text-center relative">
-        <div class="space-y-3 mb-8">
-            <span class="text-2xl">☏</span>
-            <h2 class="text-2xl font-y2k font-bold text-slate-900">Let's Connect!</h2>
-            <p class="text-xs text-slate-700 font-semibold">歡迎與我聯絡，討論實習機會與人機協同專案執行！</p>
-        </div>
-
-        <div class="bg-white/80 backdrop-blur-md rounded-[32px] p-5 border-4 border-pink-200 shadow-lg space-y-3 text-left">
-            <a href="tel:0905696662" class="flex items-center gap-4 p-3 hover:bg-pink-50/55 rounded-2xl transition-all border border-transparent hover:border-pink-200 group">
-                <div class="w-10 h-10 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-phone"></i>
-                </div>
-                <div>
-                    <span class="text-[10px] text-slate-400 font-bold block">電話聯繫 ✦</span>
-                    <span class="text-sm font-bold text-slate-800">0905-696-662</span>
-                </div>
-            </a>
-
-            <a href="mailto:e9u2g0e2n1i5a@gmail.com" class="flex items-center gap-4 p-3 hover:bg-purple-50/55 rounded-2xl transition-all border border-transparent hover:border-purple-200 group">
-                <div class="w-10 h-10 bg-purple-100 text-purple-500 rounded-full flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div class="break-all">
-                    <span class="text-[10px] text-slate-400 font-bold block">電子郵件 ✦</span>
-                    <span class="text-sm font-bold text-slate-800">e9u2g0e2n1i5a@gmail.com</span>
-                </div>
-            </a>
-        </div>
-
-        <p class="text-[9px] text-slate-500 mt-10 font-y2k font-bold uppercase tracking-wider">&copy; 2026 Eugenia Hsiao. Made with Y2K vibe.</p>
-    </footer>
-
-    <!-- ========================================== -->
-    <!-- 🌟 MODAL POPUPS (點擊專案彈出之細項詳情) -->
-    <!-- ========================================== -->
-
-    <!-- 專案一彈出視窗 -->
-    <div id="modal-project1" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="closeModal('modal-project1')">
-        <div class="bg-white rounded-[32px] max-w-lg w-full p-6 border-4 border-pink-200 shadow-2xl relative max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation();">
-            <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg" onclick="closeModal('modal-project1')">✕</button>
-            <span class="bg-pink-100 text-pink-700 font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">課堂成果</span>
-            <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">專案一細項：產線檢測瓶頸</h3>
-            <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
-                <p class="font-bold text-slate-800">✦ 現場診斷細項項目：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>使用碼錶測時法進行 50 次以上的周期觀測，建立可靠數據。</li>
-                    <li>計算檢測站之產線平衡損失率，發現高達 34% 的工時不平均。</li>
-                </ul>
-                <p class="font-bold text-slate-800">✦ 改善策略落實：</p>
-                <p>將 A 站繁雜的工作元件拆解，重新分配至工時較低的 B 站，完成產線重構。改善後預計產能提升約 18%。</p>
-            </div>
-        </div>
+            <button onclick="backToPortal()" class="mt-8 bg-slate-900 text-white font-y2k text-xs px-6 py-3 rounded-full hover:bg-slate-800 transition-all shadow-md active:scale-95">
+                ◀ 返回選擇入口
+            </button>
+        </section>
     </div>
 
-    <!-- 專案二彈出視窗 -->
-    <div id="modal-project2" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="closeModal('modal-project2')">
-        <div class="bg-white rounded-[32px] max-w-lg w-full p-6 border-4 border-purple-200 shadow-2xl relative max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation();">
-            <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg" onclick="closeModal('modal-project2')">✕</button>
-            <span class="bg-purple-100 text-purple-700 font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">產品開發</span>
-            <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">專案二細項：環保保鮮盒開發與數據</h3>
-            <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
-                <p class="font-bold text-slate-800">✦ 消費者調查數據細項：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>發放 300 份線上問卷，利用 SPSS 分析使用者攜帶午餐的主要痛點。</li>
-                    <li>調查顯示 78% 使用者最不滿意「現有餐盒加熱耗時且受限於微波爐」。</li>
-                </ul>
-                <p class="font-bold text-slate-800">✦ 3D 設計圖與影片佐證：</p>
-                <p>團隊繪製產品內部溫控元件 3D 機構拆解圖，並輸出 1 分鐘動態 3D 展示影片，完美模擬攜帶與一鍵保鮮功能。</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 專案三彈出視窗 -->
-    <div id="modal-project3" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="closeModal('modal-project3')">
-        <div class="bg-white rounded-[32px] max-w-lg w-full p-6 border-4 border-cyan-200 shadow-2xl relative max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation();">
-            <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg" onclick="closeModal('modal-project3')">✕</button>
-            <span class="bg-cyan-100 text-cyan-700 font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">執行計畫</span>
-            <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">專案三細項：碳盤查執行計畫大綱</h3>
-            <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
-                <p class="font-bold text-slate-800">✦ ISO 14064-1 盤查細項：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>確立盤查範疇，設定中小加工廠組織邊界。</li>
-                    <li>規劃直接溫室氣體排放與能源間接排放活動數據。</li>
-                </ul>
-                <p class="font-bold text-slate-800">✦ 計畫書附件：</p>
-                <p>隨計畫書檢附高擬真活動數據模擬 Excel 表格架構，供企業未來快速填入排放係數計算。</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 7. 控制 Modal 開與關的微型 JavaScript 程式碼 -->
     <script>
+        // 🌟 A. 入口分流控制函式
+        function enterEnterprise() {
+            // 顯示導覽列與音樂播放器
+            document.getElementById('main-nav').classList.remove('hidden');
+            document.getElementById('music-player').classList.remove('hidden');
+            // 切換到企業端首頁
+            switchView('home');
+        }
+
+        function enterPrivate() {
+            // 隱藏主導覽列（私人頁面用簡單的返回按鈕即可）
+            document.getElementById('main-nav').classList.add('hidden');
+            document.getElementById('music-player').classList.remove('hidden');
+            // 切換到私人日常頁
+            switchView('private');
+        }
+
+        function backToPortal() {
+            // 隱藏導覽列與音樂
+            document.getElementById('main-nav').classList.add('hidden');
+            document.getElementById('music-player').classList.add('hidden');
+            // 停止播放音樂
+            if (isPlaying) toggleMusic();
+            // 返回分流入口
+            switchView('portal');
+        }
+
+        // 🌟 B. 核心分頁切換
+        function switchView(viewId) {
+            const views = ['portal', 'home', 'about', 'projects', 'slides', 'contact', 'private'];
+            
+            views.forEach(v => {
+                const page = document.getElementById('view-' + v);
+                if (page) page.classList.add('hidden');
+                
+                const navBtn = document.getElementById('nav-' + v);
+                if (navBtn) {
+                    navBtn.classList.remove('text-pink-500', 'border-b-2', 'border-pink-400', 'text-purple-500', 'border-purple-400', 'text-cyan-500', 'border-cyan-400');
+                    navBtn.classList.add('text-gray-600');
+                }
+            });
+            
+            const activePage = document.getElementById('view-' + viewId);
+            if (activePage) activePage.classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            
+            const activeNavBtn = document.getElementById('nav-' + viewId);
+            if (activeNavBtn) {
+                activeNavBtn.classList.remove('text-gray-600');
+                if (viewId === 'about') activeNavBtn.classList.add('text-pink-500', 'border-b-2', 'border-pink-400');
+                else if (viewId === 'projects') activeNavBtn.classList.add('text-purple-500', 'border-b-2', 'border-purple-400');
+                else if (viewId === 'slides') activeNavBtn.classList.add('text-cyan-500', 'border-b-2', 'border-cyan-400');
+                else if (viewId === 'contact') activeNavBtn.classList.add('text-pink-500', 'border-b-2', 'border-pink-400');
+            }
+        }
+
+        // 🎵 C. 背景音樂控制
+        let isPlaying = false;
+        const audio = document.getElementById('bg-audio');
+        const musicBtn = document.getElementById('music-btn');
+        const musicIcon = document.getElementById('music-icon');
+        const musicStatus = document.getElementById('music-status');
+
+        function toggleMusic() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicStatus.innerText = "BGM: ON ★";
+                    musicIcon.innerText = "🎵";
+                    musicBtn.classList.add('animate-spin');
+                    musicBtn.style.animationDuration = '3s';
+                }).catch(err => { console.log("Auto-play blocked"); });
+            } else {
+                audio.pause();
+                isPlaying = false;
+                musicStatus.innerText = "BGM: OFF";
+                musicIcon.innerText = "💿";
+                musicBtn.classList.remove('animate-spin');
+            }
+        }
+
+        // Modal 視窗開關控制
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');
             document.body.style.overflow = 'hidden';
@@ -590,125 +389,10 @@
 
         window.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
-                closeModal('modal-project1');
-                closeModal('modal-project2');
-                closeModal('modal-project3');
+                closeModal('modal-project1'); closeModal('modal-project2'); closeModal('modal-project3');
+                closeModal('modal-lang'); closeModal('modal-pro'); closeModal('modal-ipas');
             }
         });
     </script>
-    <!-- ========================================== -->
-    <!-- 🌟 新增的證照彈出視窗 (Credentials Modals) -->
-    <!-- ========================================== -->
-
-    <!-- 語言能力證照彈出視窗 -->
-    <div id="modal-lang" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="closeModal('modal-lang')">
-        <div class="bg-white rounded-[32px] max-w-md w-full p-6 border-4 border-pink-200 shadow-2xl relative max-h-[80vh] overflow-y-auto" onclick="event.stopPropagation();">
-            <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg" onclick="closeModal('modal-lang')">✕</button>
-            <span class="bg-pink-100 text-pink-700 font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">Language Certificates</span>
-            <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">語言能力證明</h3>
-            <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
-                <div class="bg-pink-50/30 p-3 rounded-xl border border-pink-100">
-                    <p class="font-bold text-slate-800 mb-1">🇺🇸 英文能力證明</p>
-                    <p>多益 TOEIC 藍色證書（分數：XXX分）- 具備流暢國際職場與學術文獻閱讀能力。</p>
-                </div>
-                <div class="bg-purple-50/30 p-3 rounded-xl border border-purple-100">
-                    <p class="font-bold text-slate-800 mb-1">🇪🇸 西班牙文能力證明</p>
-                    <p>西文相關等級檢定 / 學習合格證明。具備基礎商務與日常對話能力。</p>
-                </div>
-                <p class="text-[10px] text-gray-400 italic">⚠️ 提示：晴欣可於此區上傳並嵌入妳的證照掃描檔圖片 &lt;img src="圖片名稱.jpg" class="w-full rounded-lg mt-2"&gt;</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 相關專業證照彈出視窗 -->
-    <div id="modal-pro" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="closeModal('modal-pro')">
-        <div class="bg-white rounded-[32px] max-w-md w-full p-6 border-4 border-purple-200 shadow-2xl relative max-h-[80vh] overflow-y-auto" onclick="event.stopPropagation();">
-            <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg" onclick="closeModal('modal-pro')">✕</button>
-            <span class="bg-purple-100 text-purple-700 font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">IE Certifications</span>
-            <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">相關專業證照</h3>
-            <div class="space-y-3 text-xs text-slate-600">
-                <div class="grid grid-cols-1 gap-2">
-                    <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-150">
-                        <strong class="text-slate-800">⚙️ 工業工程（IE）相關認證</strong>
-                        <p class="text-[11px] text-slate-500 mt-0.5">學會/公會授與之工業工程師專業資格。</p>
-                    </div>
-                    <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-150">
-                        <strong class="text-slate-800">⚡ 精實工程（Lean Six Sigma）</strong>
-                        <p class="text-[11px] text-slate-500 mt-0.5">精實改善、綠帶/黃帶等流程消除浪費手法認證。</p>
-                    </div>
-                    <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-150">
-                        <strong class="text-slate-800">🛎️ 服務管理相關認證</strong>
-                        <p class="text-[11px] text-slate-500 mt-0.5">系統化服務業優化與顧客體驗管理專業資格。</p>
-                    </div>
-                    <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-150">
-                        <strong class="text-slate-800">🤖 智慧製造 / 永續相關</strong>
-                        <p class="text-[11px] text-slate-500 mt-0.5">智慧製造系統工程、ESG / 溫室氣體盤查培訓合格證明。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ipas 證照彈出視窗 -->
-    <div id="modal-ipas" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" onclick="closeModal('modal-ipas')">
-        <div class="bg-white rounded-[32px] max-w-md w-full p-6 border-4 border-cyan-200 shadow-2xl relative max-h-[80vh] overflow-y-auto" onclick="event.stopPropagation();">
-            <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg" onclick="closeModal('modal-ipas')">✕</button>
-            <span class="bg-cyan-100 text-cyan-700 font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">ipas Certificates</span>
-            <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">經濟部 ipas 專業工程師證照</h3>
-            <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
-                <p>經濟部主導之 **產業人才能力鑑定 (ipas)**，是台灣半導體、電子與製造大廠在招募時高度認可的國家級專業證照：</p>
-                <div class="bg-cyan-50/30 p-3 rounded-xl border border-cyan-100">
-                    <p class="font-bold text-slate-800">✦ 鑑定合格項目：</p>
-                    <p class="mt-1">已取得工業工程、智慧製造或永續發展相關範疇之 **ipas 專業工程師** 合格證書。</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
-        <!-- 🎵 Y2K 懸浮音樂播放器 -->
-    <div class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white/80 backdrop-blur-md p-2 rounded-full border-2 border-pink-200 shadow-lg">
-        <!-- 音樂控制按鈕（點擊會旋轉） -->
-        <button onclick="toggleMusic()" id="music-btn" class="w-10 h-10 bg-gradient-to-tr from-pink-400 to-purple-400 rounded-full flex items-center justify-center text-white text-lg focus:outline-none transition-all active:scale-95 shadow-md">
-            <span id="music-icon">💿</span>
-        </button>
-        <span id="music-status" class="text-[10px] font-y2k font-bold text-pink-500 pr-2 select-none">BGM: OFF</span>
-        
-        <!-- 🔊 音樂本體（請放入妳要播的音樂網址，支援 mp3 格式） 
-             這裡預設放一首免費的復古輕快背景音樂，妳可以自由更換 -->
-        <audio id="bg-audio" loop>
-            <source src=""C:\Users\User\Downloads\Sufjan Stevens - Mystery of Love (From Call Me By Your Name Soundtrack).mp3"" type="audio/mpeg">
-        </audio>
-    </div>
-      </script>
 </html>
-// ==========================================
-        // 🎵 Y2K 背景音樂控制
-        // ==========================================
-        let isPlaying = false;
-        const audio = document.getElementById('bg-audio');
-        const musicBtn = document.getElementById('music-btn');
-        const musicIcon = document.getElementById('music-icon');
-        const musicStatus = document.getElementById('music-status');
-
-        function toggleMusic() {
-            if (!isPlaying) {
-                // 播放音樂
-                audio.play().then(() => {
-                    isPlaying = true;
-                    musicStatus.innerText = "BGM: ON ★";
-                    musicIcon.innerText = "🎵";
-                    // 讓 CD 圖示播放時一直旋轉
-                    musicBtn.classList.add('animate-spin');
-                    musicBtn.style.animationDuration = '3s';
-                }).catch(err => {
-                    console.log("瀏覽器限制了自動播放，請使用者主動點擊。");
-                });
-            } else {
-                // 暫停音樂
-                audio.pause();
-                isPlaying = false;
-                musicStatus.innerText = "BGM: OFF";
-                musicIcon.innerText = "💿";
-                musicBtn.classList.remove('animate-spin');
-            }
-        }
