@@ -676,7 +676,38 @@
         <!-- 🔊 音樂本體（請放入妳要播的音樂網址，支援 mp3 格式） 
              這裡預設放一首免費的復古輕快背景音樂，妳可以自由更換 -->
         <audio id="bg-audio" loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            <source src="https://youtu.be/gVVhHjyC04k?si=c0GwB8d4p6KE97YP" type="audio/mpeg">
         </audio>
     </div>
 </html>
+// ==========================================
+        // 🎵 Y2K 背景音樂控制
+        // ==========================================
+        let isPlaying = false;
+        const audio = document.getElementById('bg-audio');
+        const musicBtn = document.getElementById('music-btn');
+        const musicIcon = document.getElementById('music-icon');
+        const musicStatus = document.getElementById('music-status');
+
+        function toggleMusic() {
+            if (!isPlaying) {
+                // 播放音樂
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicStatus.innerText = "BGM: ON ★";
+                    musicIcon.innerText = "🎵";
+                    // 讓 CD 圖示播放時一直旋轉
+                    musicBtn.classList.add('animate-spin');
+                    musicBtn.style.animationDuration = '3s';
+                }).catch(err => {
+                    console.log("瀏覽器限制了自動播放，請使用者主動點擊。");
+                });
+            } else {
+                // 暫停音樂
+                audio.pause();
+                isPlaying = false;
+                musicStatus.innerText = "BGM: OFF";
+                musicIcon.innerText = "💿";
+                musicBtn.classList.remove('animate-spin');
+            }
+        }
