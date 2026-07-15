@@ -665,7 +665,7 @@
         </div>
     </div>
 </body>
-    <!-- 🎵 Y2K 懸浮音樂播放器 -->
+        <!-- 🎵 Y2K 懸浮音樂播放器 -->
     <div class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white/80 backdrop-blur-md p-2 rounded-full border-2 border-pink-200 shadow-lg">
         <!-- 音樂控制按鈕（點擊會旋轉） -->
         <button onclick="toggleMusic()" id="music-btn" class="w-10 h-10 bg-gradient-to-tr from-pink-400 to-purple-400 rounded-full flex items-center justify-center text-white text-lg focus:outline-none transition-all active:scale-95 shadow-md">
@@ -679,6 +679,7 @@
             <source src="https://youtu.be/gVVhHjyC04k?si=c0GwB8d4p6KE97YP" type="audio/mpeg">
         </audio>
     </div>
+      </script>
 </html>
 // ==========================================
         // 🎵 Y2K 背景音樂控制
@@ -689,7 +690,7 @@
         const musicIcon = document.getElementById('music-icon');
         const musicStatus = document.getElementById('music-status');
 
-        function toggleMusic() {
+        function toggleMusic() {s
             if (!isPlaying) {
                 // 播放音樂
                 audio.play().then(() => {
