@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蕭晴欣 Eugenia | 個人作品集 Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Noto Sans TC (Y2K Aesthetic selection) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        y2k: ['Fredoka', 'Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        y2k: {
+                            pink: '#ff9ebb',    // Bubblegum Pink
+                            darkpink: '#f472b6',
+                            purple: '#d8b4fe',  // Pastel Lilac
+                            blue: '#a5f3fc',    // Aqua Tiffany Blue
+                            darkblue: '#0891b2',
+                            cream: '#fdfbf7',   // Milky White
+                            lime: '#bef264',    // Cyber Lime
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient(135deg, #fef2f2 0%, #faf5ff 50%, #ecfeff 100%);
+            background-attachment: fixed;
+        }
+        /* Hide scrollbars but keep swipe active */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Floating Star animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(15deg); }
+        }
+        .animate-float-1 { animation: float 6s ease-in-out infinite; }
+        .animate-float-2 { animation: float 8s ease-in-out infinite 1s; }
+        .animate-float-3 { animation: float 7s ease-in-out infinite 2s; }
+        
+        /* Glassmorphism Y2K Style */
+        .y2k-glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(244, 114, 182, 0.1);
+        }
+        .y2k-card-pink {
+            border: 3px solid #ff9ebb;
+            box-shadow: 4px 4px 0px 0px #ff9ebb;
+        }
+        .y2k-card-purple {
+            border: 3px solid #d8b4fe;
+            box-shadow: 4px 4px 0px 0px #d8b4fe;
+        }
+        .y2k-card-blue {
+            border: 3px solid #a5f3fc;
+            box-shadow: 4px 4px 0px 0px #a5f3fc;
+        }
+        /* Custom Sticker Styling */
+        .y2k-sticker {
+            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased overflow-x-hidden min-h-screen">
+
+    <!-- 🌟 背景裝飾浮動元素 (Y2K Stars / Butterflies) -->
+    <div class="absolute top-20 left-6 text-y2k-pink/40 text-4xl animate-float-1 pointer-events-none">✦</div>
+    <div class="absolute top-40 right-10 text-y2k-purple/40 text-5xl animate-float-2 pointer-events-none">★</div>
+    <div class="absolute top-[45%] left-10 text-y2k-blue/40 text-3xl animate-float-3 pointer-events-none">🦋</div>
+    <div class="absolute top-[65%] right-12 text-y2k-pink/30 text-4xl animate-float-1 pointer-events-none">✦</div>
+    <div class="absolute bottom-32 left-8 text-y2k-purple/30 text-5xl animate-float-2 pointer-events-none">💿</div>
+    <div class="absolute bottom-20 right-6 text-y2k-blue/30 text-4xl animate-float-3 pointer-events-none">✿</div>
+
+    <!-- 1. 頂部導覽列 (Navigation) -->
+    <nav class="fixed top-4 left-4 right-4 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-3 flex justify-between items-center bg-white/70 backdrop-blur-md rounded-full border-2 border-pink-100 shadow-lg">
+            <a href="#" class="font-y2k font-bold text-lg tracking-wider text-pink-500 flex items-center gap-1">
+                <span>EUGENIA</span><span class="text-y2k-purple">★</span><span class="text-cyan-400">STUDIO</span>
+            </a>
+            <!-- 桌機版選單 -->
+            <div class="hidden md:flex space-x-6 text-sm font-semibold text-gray-600">
+                <a href="#about" class="hover:text-pink-500 hover:scale-105 transition-all">關於我</a>
+                <a href="#projects" class="hover:text-purple-500 hover:scale-105 transition-all">執行專案</a>
+                <a href="#slides" class="hover:text-cyan-500 hover:scale-105 transition-all">簡報視覺</a>
+                <a href="#contact" class="hover:text-pink-500 hover:scale-105 transition-all">聯絡方式</a>
+            </div>
+            <!-- 手機版聯絡捷徑按鈕 -->
+            <a href="#contact" class="text-xs bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white px-4 py-2 rounded-full font-bold shadow-md transition-all active:scale-95">
+                聯絡晴欣 ☏
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. 首頁 Hero Section -->
+    <header class="pt-32 pb-16 px-6 max-w-5xl mx-auto flex flex-col justify-center min-h-[75vh] relative">
+        <!-- 潮感泡泡貼紙標籤 -->
+        <div class="flex flex-wrap gap-2 mb-6">
+            <span class="bg-y2k-pink/20 text-pink-600 border border-pink-300 text-xs px-3 py-1.5 rounded-full font-y2k font-bold tracking-wider animate-pulse">
+                ★ FCUＩＥＳＭ
+        
+            </span>
+            <span class="bg-y2k-purple/20 text-purple-600 border border-purple-300 text-xs px-3 py-1.5 rounded-full font-y2k font-bold tracking-wider">
+                💿 PORTFOLIO 2026
+            </span>
+        </div>
+        
+        <div class="space-y-6">
+            <div class="relative inline-block">
+                <h1 class="text-5xl md:text-7xl font-y2k font-black text-slate-900 leading-tight">
+                    蕭晴欣 <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 font-bold">Eugenia</span>
+                </h1>
+                <!-- 裝飾小手繪小星星 -->
+                <span class="absolute -top-6 -right-6 text-yellow-400 text-3xl animate-bounce">✦</span>
+            </div>
+            
+            <p class="text-base md:text-lg text-slate-600 max-w-2xl font-medium leading-relaxed bg-white/40 p-4 rounded-2xl backdrop-blur-sm border border-white/60 shadow-sm">
+                你好！我是晴欣。來自逢甲大學工業工程與系統管理學系碩士班。
+                我喜愛將<span class="text-pink-500 font-bold">「精實的系統邏輯」</span>結合<span class="text-purple-500 font-bold">「數據洞察」</span>，以工程視角和永續思維，把繁雜的現場瓶頸、市場調查與碳盤查標準，化作乾淨、最具執行力的優化方案。
+            </p>
+            
+            <div class="pt-4 flex flex-wrap gap-4">
+                <a href="#projects" class="bg-pink-400 hover:bg-pink-500 text-white font-y2k font-bold px-6 py-3.5 rounded-2xl shadow-[4px_4px_0px_0px_#f472b6] border-2 border-pink-200 transition-all active:translate-y-1 active:shadow-none">
+                    瀏覽專案作品 ✦
+                </a>
+                <a href="#slides" class="bg-cyan-100 hover:bg-cyan-200 text-cyan-800 font-y2k font-bold px-6 py-3.5 rounded-2xl border-2 border-cyan-300 transition-all active:translate-y-1">
+                    簡報視覺藝廊 💿
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. 關於我 & 核心技能 (About & Skills) -->
+    <section id="about" class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            
+            <!-- 左側個人簡介卡片 (Y2K風格) -->
+            <div class="y2k-glass p-6 rounded-3xl border-2 border-purple-200 shadow-xl space-y-4">
+                <div class="w-20 h-20 bg-gradient-to-br from-pink-300 via-purple-300 to-cyan-300 rounded-full flex items-center justify-center shadow-inner relative mx-auto md:mx-0">
+                    <span class="text-white text-3xl font-y2k font-bold">EH</span>
+                    <span class="absolute -bottom-1 -right-1 text-base">🦋</span>
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="text-2xl font-y2k font-bold text-slate-900">蕭晴欣 Eugenia</h2>
+                    <p class="text-xs text-pink-500 font-bold mt-1">逢甲大學工工系碩士班</p>
+                </div>
+                <hr class="border-pink-100">
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed text-center md:text-left">
+                    在工工領域中，我深信「能被定義的，就能被優化」。不論是產線實地診斷還是新產品研發，我習慣以嚴謹邏輯思考，加上對視覺傳達的高度敏銳，讓數據和流程報告更直覺、更有感染力！
+                </p>
+            </div>
+
+            <!-- 右側核心技能與手法 -->
+            <div class="md:col-span-2 space-y-6">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">★</span>
+                    <h3 class="text-xl font-y2k font-bold tracking-wider text-purple-600">PROFESSIONAL SKILLS</h3>
+                    <span class="text-xl">★</span>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- 技能 1 -->
+                    <div class="p-4 bg-white/70 rounded-2xl border-2 border-pink-100 shadow-sm hover:border-pink-300 transition-all group">
+                        <div class="flex items-center gap-2 mb-1.5">
+                            <span class="text-lg text-pink-400 group-hover:rotate-12 transition-transform">⚙️</span>
+                            <h4 class="font-bold text-slate-800 text-sm">現場診斷與瓶頸優化</h4>
+                        </div>
+                        <p class="text-xs text-slate-500">熟練運用時間研究、產線平衡法、價值流程圖 (VSM) 與精實生產手法排除產能瓶頸。</p>
+                    </div>
+                    <!-- 技能 2 -->
+                    <div class="p-4 bg-white/70 rounded-2xl border-2 border-purple-100 shadow-sm hover:border-purple-300 transition-all group">
+                        <div class="flex items-center gap-2 mb-1.5">
+                            <span class="text-lg text-purple-400 group-hover:rotate-12 transition-transform">📊</span>
+                            <h4 class="font-bold text-slate-800 text-sm">市場問卷與數據分析</h4>
+                        </div>
+                        <p class="text-xs text-slate-500">進行消費者量化問卷設計與分析，發掘真實痛點並進行科學化市場可行性評估。</p>
+                    </div>
+                    <!-- 技能 3 -->
+                    <div class="p-4 bg-white/70 rounded-2xl border-2 border-cyan-100 shadow-sm hover:border-cyan-300 transition-all group">
+                        <div class="flex items-center gap-2 mb-1.5">
+                            <span class="text-lg text-cyan-400 group-hover:rotate-12 transition-transform">🌱</span>
+                            <h4 class="font-bold text-slate-800 text-sm">永續碳盤查規劃</h4>
+                        </div>
+                        <p class="text-xs text-slate-500">掌握 ISO 14064-1 組織溫室氣體盤查規範、活動數據邊界界定，具備盤查實務規劃能力。</p>
+                    </div>
+                    <!-- 技能 4 -->
+                    <div class="p-4 bg-white/70 rounded-2xl border-2 border-yellow-100 shadow-sm hover:border-yellow-300 transition-all group">
+                        <div class="flex items-center gap-2 mb-1.5">
+                            <span class="text-lg text-yellow-500 group-hover:rotate-12 transition-transform">💻</span>
+                            <h4 class="font-bold text-slate-800 text-sm">邏輯簡報與視覺傳達</h4>
+                        </div>
+                        <p class="text-xs text-slate-500">能將繁複邏輯與學術理論進行「資訊圖表化」重構，產出視覺精確且結構嚴謹的簡報。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. 執行專案 (Projects) -->
+    <section id="projects" class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="text-xs font-bold tracking-widest text-pink-500 uppercase bg-pink-50 px-3 py-1 rounded-full">My Portfolio</span>
+            <h2 class="text-3xl font-y2k font-bold text-slate-900 mt-2">學術與專案實踐歷程</h2>
+            <p class="text-slate-500 text-sm mt-1">在大學與研究所時期，我所主導、執行的核心專案成果</p>
+        </div>
+
+        <div class="space-y-10">
+            <!-- 專案 1 -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 y2k-card-pink transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <span class="bg-pink-100 text-pink-700 font-bold text-xs px-3 py-1.5 rounded-full">
+                        ★ 大學部畢業專題
+                    </span>
+                    <span class="text-xs text-gray-400 font-mono">VSM / 瓶頸改善</span>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    應用價值流程圖於產線檢測瓶頸問題
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-pink-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">🔍 發現痛點</span>
+                        <p class="text-xs md:text-sm text-slate-600">產線檢測關卡因工時不均勻，造成半成品堆積與嚴重的人員等待時間，大幅限制整體產能。</p>
+                    </div>
+                    <div class="bg-purple-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-purple-500 block mb-1">⚙️ 執行過程</span>
+                        <p class="text-xs md:text-sm text-slate-600">實地觀測測量各站工時，繪製「現況價值流程圖 (Current VSM)」。運用 IE 七大手法重組工作程序，規劃出「未來狀態圖 (Future VSM)」。</p>
+                    </div>
+                    <div class="bg-cyan-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-cyan-600 block mb-1">📊 執行成果</span>
+                        <p class="text-xs md:text-sm text-slate-600">成功平衡生產線，消除檢測瓶頸，預估可降低等待浪費，提高產線流動效率。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 專案 2 -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 y2k-card-purple transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <span class="bg-purple-100 text-purple-700 font-bold text-xs px-3 py-1.5 rounded-full">
+                        💿 研究所課堂專案
+                    </span>
+                    <span class="text-xs text-gray-400 font-mono">產品設計 / 問卷分析</span>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    環保科技保鮮盒開發計畫
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-pink-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">🔍 發現痛點</span>
+                        <p class="text-xs md:text-sm text-slate-600">外食族常面臨加熱不便或保鮮不佳的窘境。市面上缺乏整合「溫控技術」與「攜帶環保」的商品解決方案。</p>
+                    </div>
+                    <div class="bg-purple-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-purple-500 block mb-1">⚙️ 執行過程</span>
+                        <p class="text-xs md:text-sm text-slate-600">設計市場問卷，量化分析消費者習慣與痛點。依數據進行外觀功能規劃，繪製 3D 產品設計圖並剪輯 3D 概念介紹影片。</p>
+                    </div>
+                    <div class="bg-cyan-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-cyan-600 block mb-1">🎬 執行成果</span>
+                        <p class="text-xs md:text-sm text-slate-600">完成一整套具高可行性的產品開發提案書，包含市場定位、3D設計圖與宣傳影片，成功展示跨領域提案實力。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 專案 3 -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 y2k-card-blue transition-all duration-300 hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <span class="bg-cyan-100 text-cyan-700 font-bold text-xs px-3 py-1.5 rounded-full">
+                        🦋 研究所課堂專案
+                    </span>
+                    <span class="text-xs text-gray-400 font-mono">ISO 14064 / 減碳模型</span>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    企業碳盤查執行計畫書
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-pink-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">🔍 執行背景</span>
+                        <p class="text-xs md:text-sm text-slate-600">因應國際減碳法規與綠色供應鏈標準，為本土製造企業規劃高合規、系統化的碳排放量盤查藍圖。</p>
+                    </div>
+                    <div class="bg-purple-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-purple-500 block mb-1">⚙️ 執行過程</span>
+                        <p class="text-xs md:text-sm text-slate-600">依 ISO 14064-1 要求設定盤查邊界，精確設計活動數據（用電、能耗等）收集表單，並建置 Excel 排放係數計算模型。</p>
+                    </div>
+                    <div class="bg-cyan-50/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-cyan-600 block mb-1">📈 執行成果</span>
+                        <p class="text-xs md:text-sm text-slate-600">完成包含組織範疇界定、計算架構及節能建議的「企業碳盤查執行報告」，展現卓越的標準法規理解與執行計畫力。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 簡報與邏輯視覺化藝廊 (Slides Carousel - Y2K Style) -->
+    <section id="slides" class="py-16 px-6 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white rounded-[40px] mx-4 my-10 relative overflow-hidden">
+        <!-- 網格裝飾背景 -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="mb-10 text-center md:text-left">
+                <span class="text-xs font-y2k font-bold tracking-widest text-y2k-pink bg-pink-900/30 border border-pink-700/50 px-3 py-1 rounded-full uppercase">
+                    ★ Slide Design Portfolio
+                </span>
+                <h2 class="text-3xl font-y2k font-bold mt-2">簡報設計與邏輯視覺化</h2>
+                <p class="text-slate-400 text-sm mt-2 max-w-xl">
+                    「把複雜的系統數據與邏輯，翻譯成最具感染力的視覺載體。」以下是我在專案發表中製作的投影片視覺，兼顧邏輯美感與易讀性：
+                </p>
+            </div>
+
+            <!-- 手機左右滑動 Slider -->
+            <div class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory no-scrollbar">
+                
+                <!-- 投影片 1 -->
+                <div class="flex-none w-[300px] md:w-[450px] snap-start bg-slate-800/80 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700 shadow-xl">
+                    <div class="aspect-video bg-slate-900/90 flex flex-col items-center justify-center border-b border-slate-700/80 p-6 relative">
+                        <!-- 💡 提示：可以在此處直接把圖片路徑替換成妳的簡報截圖，例如：
+                        <img src="slide1.png" class="absolute inset-0 w-full h-full object-cover">
+                        -->
+                        <div class="text-center">
+                            <span class="text-4xl block mb-2">💿</span>
+                            <span class="text-xs font-mono text-pink-400 block mb-1">PRESENTATION 01</span>
+                            <p class="text-base font-bold text-white">現況 VSM vs. 未來改善 VSM</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-800">
+                        <h4 class="text-sm font-bold text-y2k-pink mb-1">✦ 產線數據對比重構</h4>
+                        <p class="text-xs text-slate-400">將繁雜的工時與等待秒數以高對比的視覺色塊進行分類，使產線瓶頸與改善後的預計成效一目了然。</p>
+                    </div>
+                </div>
+
+                <!-- 投影片 2 -->
+                <div class="flex-none w-[300px] md:w-[450px] snap-start bg-slate-800/80 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700 shadow-xl">
+                    <div class="aspect-video bg-slate-900/90 flex flex-col items-center justify-center border-b border-slate-700/80 p-6 relative">
+                        <div class="text-center">
+                            <span class="text-4xl block mb-2">🦋</span>
+                            <span class="text-xs font-mono text-purple-400 block mb-1">PRESENTATION 02</span>
+                            <p class="text-base font-bold text-white">環保科技盒：市場問卷核心痛點</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-800">
+                        <h4 class="text-sm font-bold text-y2k-purple mb-1">✦ 金字塔痛點邏輯拆解</h4>
+                        <p class="text-xs text-slate-400">避開傳統死板的數據清單，運用金字塔原理將複雜問卷結果提煉為三大圖形痛點，易於吸引決策者目光。</p>
+                    </div>
+                </div>
+
+                <!-- 投影片 3 -->
+                <div class="flex-none w-[300px] md:w-[450px] snap-start bg-slate-800/80 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700 shadow-xl">
+                    <div class="aspect-video bg-slate-900/90 flex flex-col items-center justify-center border-b border-slate-700/80 p-6 relative">
+                        <div class="text-center">
+                            <span class="text-4xl block mb-2">✿</span>
+                            <span class="text-xs font-mono text-cyan-400 block mb-1">PRESENTATION 03</span>
+                            <p class="text-base font-bold text-white">ISO 碳盤查計畫範疇與執行時程</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-800">
+                        <h4 class="text-sm font-bold text-y2k-blue mb-1">✦ 枯燥條文圖表化</h4>
+                        <p class="text-xs text-slate-400">將生硬的 ISO 14064 條文與執行時程轉化為色彩活潑、層次分明的時間軸圖表，呈現專業專案掌控力。</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 手機左右滑動貼心指示 -->
+            <div class="flex items-center justify-center gap-2 mt-4 text-xs text-slate-500 md:hidden animate-bounce">
+                <span>◀ 左右滑動切換簡報 ▶</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 聯絡資訊 (Contact) -->
+    <footer id="contact" class="py-16 px-6 max-w-xl mx-auto text-center relative">
+        <div class="space-y-4 mb-8">
+            <span class="text-3xl">☏</span>
+            <h2 class="text-3xl font-y2k font-bold text-slate-900">Let's Connect!</h2>
+            <p class="text-sm text-slate-500">歡迎點擊下方資訊，與我聯繫聊聊妳的實習機會與專案合作！</p>
+        </div>
+
+        <!-- 聯絡方式大卡片 -->
+        <div class="bg-white rounded-[32px] p-6 border-4 border-pink-200 shadow-xl space-y-4 text-left">
+            
+            <a href="tel:0905696662" class="flex items-center gap-4 p-4 hover:bg-pink-50 rounded-2xl transition-all border border-transparent hover:border-pink-200 group">
+                <div class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-400 font-bold block">電話聯繫 ✦</span>
+                    <span class="text-base font-bold text-slate-800">0905-696-662</span>
+                </div>
+            </a>
+
+            <a href="mailto:e9u2g0e2n1i5a@gmail.com" class="flex items-center gap-4 p-4 hover:bg-purple-50 rounded-2xl transition-all border border-transparent hover:border-purple-200 group">
+                <div class="w-12 h-12 bg-purple-100 text-purple-500 rounded-full flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="break-all">
+                    <span class="text-xs text-slate-400 font-bold block">電子郵件 ✦</span>
+                    <span class="text-base font-bold text-slate-800">e9u2g0e2n1i5a@gmail.com</span>
+                </div>
+            </a>
+
+        </div>
+
+        <p class="text-[10px] text-slate-400 tracking-widest mt-12 font-y2k font-bold uppercase">&copy; 2026 Eugenia Hsiao. Made with love & Y2K vibe.</p>
+    </footer>
+
+</body>
+</html>
